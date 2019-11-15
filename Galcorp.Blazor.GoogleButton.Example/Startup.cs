@@ -29,6 +29,11 @@ namespace Galcorp.Blazor.GoogleButton.Example
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();
+
+            services.AddGalcorpGoogleButton(new GButtonConfig()
+            {
+                GoogleApiPublicKey = "someGooleClinetId-google.com"
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
