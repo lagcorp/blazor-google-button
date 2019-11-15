@@ -1,0 +1,57 @@
+﻿@using Microsoft.AspNetCore.Components.Web
+@using Galcorp.Blazor.GoogleButton
+@using Microsoft.JSInterop
+@inject IJSRuntime JSRuntime
+@inject ProfileService ProfileService
+
+@if (IsSignedIn)
+{
+
+    <button class="p-2 text-dark" @onclick="OnSignoutClick">
+        <img src="@UserProfile.ImageURL" height="24" />
+        Signout (@UserProfile.FullName)
+    </button>
+
+}
+else
+{
+    <button class="p-2 text-dark" @onclick="OnLoginClick">
+        <span class="oi oi-person" aria-hidden="true"></span> Login
+    </button>
+}
+
+
+@code {
+
+    public bool IsSignedIn { get; set; }
+    public User UserProfile { get; set; }
+
+
+    public async void OnLoginClick()
+    {
+        await JSRuntime.InvokeVoidAsync("glogin.askGoogleForLogin");
+    }
+
+    public async void OnSignoutClick()
+    {
+        await JSRuntime.InvokeVoidAsync("glogin.askGoogleForSignout");
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        IsSignedIn = false;
+        UserProfile = new User();
+
+        IsSignedIn = await ProfileService.IsSignedInAsync();
+        ProfileService.OnSignInChanged += ProfileService_OnSignInChanged;
+    }
+
+
+    private void ProfileService_OnSignInChanged(bool state)
+    {
+        this.IsSignedIn = state;
+        this.UserProfile = ProfileService.Profile;
+
+        InvokeAsync(StateHasChanged);
+    }
+}
