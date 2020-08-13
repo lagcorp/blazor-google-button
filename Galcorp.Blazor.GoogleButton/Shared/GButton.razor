@@ -2,12 +2,12 @@
 @using Galcorp.Blazor.GoogleButton
 @using Microsoft.JSInterop
 @inject IJSRuntime JSRuntime
-@inject ProfileService ProfileService
+@inject GButtonService ProfileService
 
 @if (IsSignedIn)
 {
 
-    <button class="p-2 text-dark" @onclick="OnSignoutClick">
+    <button @onclick="OnSignoutClick">
         <img src="@UserProfile.ImageURL" height="24" />
         Signout (@UserProfile.FullName)
     </button>
@@ -15,8 +15,8 @@
 }
 else
 {
-    <button class="p-2 text-dark" @onclick="OnLoginClick">
-        <span class="oi oi-person" aria-hidden="true"></span> Login
+    <button @onclick="OnLoginClick">
+        <img src="_content/Galcorp.Blazor.GoogleButton/img/google_signin_buttons/web/2x/btn_google_signin_light_normal_web@2x.png" />
     </button>
 }
 
@@ -37,13 +37,20 @@ else
         await JSRuntime.InvokeVoidAsync("glogin.askGoogleForSignout");
     }
 
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
         IsSignedIn = false;
         UserProfile = new User();
 
-        IsSignedIn = await ProfileService.IsSignedInAsync();
+        IsSignedIn = false;
         ProfileService.OnSignInChanged += ProfileService_OnSignInChanged;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        IsSignedIn = await ProfileService.IsSignedInAsync();
+
+        await base.OnAfterRenderAsync(firstRender);
     }
 
 

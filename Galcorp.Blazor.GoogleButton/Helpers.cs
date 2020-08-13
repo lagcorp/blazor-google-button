@@ -1,7 +1,5 @@
-﻿using Galcorp.Blazor.GoogleButton;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿// ReSharper disable once CheckNamespace
+using Galcorp.Blazor.GoogleButton;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -10,7 +8,8 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IServiceCollection AddGalcorpGoogleButton(this IServiceCollection services, GButtonConfig options)
         {
             services.AddSingleton<GButtonConfig>(options);
-            return services.AddScoped<ProfileService>();
+
+            return services.AddScoped<GButtonService>();
         }
     }
 }

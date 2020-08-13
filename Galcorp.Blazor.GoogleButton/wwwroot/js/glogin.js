@@ -20,8 +20,7 @@ window.glogin.onSignIn = (success) => {
 window.glogin.init = () => {
     if (glogin.client_id) {
         gapi.auth2.init({
-            client_id: glogin.client_id,
-            scope: 'https://www.googleapis.com/auth/plus.login'
+            client_id: glogin.client_id
         }).then(function (auth2) {
             auth2.isSignedIn.listen(glogin.onSignIn);
 

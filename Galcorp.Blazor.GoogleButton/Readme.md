@@ -4,7 +4,7 @@ Add to your
 
 
 Add to your
-```
+``
  public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
@@ -14,11 +14,9 @@ Add to your
             services.AddGalcorpGoogleButton();
 
 			}
-```
-
+``
 Add to your hosts.cs:
-
-```
+``
 @page "/"
 @namespace Revuo.Web.Paper.Pages
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
@@ -47,5 +45,5 @@ Add to your hosts.cs:
 </body>
 </html>
 
-```
+``
 

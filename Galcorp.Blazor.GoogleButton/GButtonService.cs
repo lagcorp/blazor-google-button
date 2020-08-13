@@ -7,15 +7,15 @@ namespace Galcorp.Blazor.GoogleButton
 {
     public delegate void OnSignInChangedHandler(bool state);
 
-    public class ProfileService
+    public class GButtonService
     {
-        private IJSRuntime _runtime;
+        private readonly IJSRuntime _runtime;
 
         public User Profile { get; private set; }
 
         public event OnSignInChangedHandler OnSignInChanged;
 
-        public ProfileService(IJSRuntime runtime, GButtonConfig options)
+        public GButtonService(IJSRuntime runtime, GButtonConfig options)
         {
             this._runtime = runtime;
             
@@ -51,6 +51,7 @@ namespace Galcorp.Blazor.GoogleButton
         {
             try
             {
+                //// check google stuff
                 var u = await _runtime.InvokeAsync<User>("glogin.getUserInfo");
                 return u;
             }

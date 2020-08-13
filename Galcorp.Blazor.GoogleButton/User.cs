@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Galcorp.Blazor.GoogleButton
+﻿namespace Galcorp.Blazor.GoogleButton
 {
     public class User
     {
@@ -12,6 +8,5 @@ namespace Galcorp.Blazor.GoogleButton
         public string FamilyName { get; set; }
         public string ImageURL { get; set; }
         public string Email { get; set; }
-
     }
 }
